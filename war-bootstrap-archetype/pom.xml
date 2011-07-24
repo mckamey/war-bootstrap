@@ -26,9 +26,9 @@
 		</license>
 	</licenses>
 	<scm>
-		<url>https://bitbucket.org/mckamey/duel-mvc</url>
-		<connection>scm:hg:https://bitbucket.org/mckamey/duel-mvc</connection>
-		<developerConnection>scm:hg:https://bitbucket.org/mckamey/duel-mvc</developerConnection>
+		<url>https://bitbucket.org/mckamey/war-bootstrap</url>
+		<connection>scm:hg:https://bitbucket.org/mckamey/war-bootstrap</connection>
+		<developerConnection>scm:hg:https://bitbucket.org/mckamey/war-bootstrap</developerConnection>
 	</scm>
 	<developers>
 		<developer>
