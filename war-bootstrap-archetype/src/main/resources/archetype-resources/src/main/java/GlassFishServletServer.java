@@ -4,6 +4,8 @@
 package ${package};
 
 import java.io.File;
+import java.util.Map;
+
 import org.glassfish.embeddable.*;
 
 class GlassFishServletServer implements ServletServer {
@@ -13,7 +15,7 @@ class GlassFishServletServer implements ServletServer {
 		return "GlassFish";
 	}
 
-	public void start(String warPath, String contextPath, int httpPort, int httpsPort) throws Exception {
+	public void start(Map<String, String> contexts, int httpPort, int httpsPort) throws Exception {
 		if (server != null) {
 			throw new IllegalStateException("Web server is already running.");
 		}
@@ -22,16 +24,19 @@ class GlassFishServletServer implements ServletServer {
 		if (httpPort > 0) {
 			gfProps.setPort("http-listener", httpPort);
 		}
-		if (httpsPort > 0) {
-			gfProps.setPort("https-listener", httpsPort);
-		}
+//		if (httpsPort > 0) {
+//			gfProps.setPort("https-listener", httpsPort);
+//		}
 
 		server = GlassFishRuntime.bootstrap().newGlassFish(gfProps);
-		server.start();
 
-		File war = new File(warPath);
-		Deployer deployer = server.getDeployer();
-		deployer.deploy(war, "--name=webapp", "--contextroot="+contextPath, "--force=true");
+		for (String contextPath : contexts.keySet()) {
+			File war = new File(contexts.get(contextPath));
+			Deployer deployer = server.getDeployer();
+			deployer.deploy(war, "--name="+war.getName(), "--contextroot="+contextPath, "--force=true");
+		}
+
+		server.start();
 	}
 
 	public void stop() throws Exception {

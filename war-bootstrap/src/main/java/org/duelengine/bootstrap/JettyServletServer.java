@@ -1,7 +1,9 @@
 package org.duelengine.bootstrap;
 
-import org.eclipse.jetty.server.*;
-import org.eclipse.jetty.servlet.*;
+import java.util.Map;
+
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.servlet.DefaultServlet;
 import org.eclipse.jetty.webapp.WebAppContext;
 
 class JettyServletServer implements ServletServer {
@@ -11,21 +13,23 @@ class JettyServletServer implements ServletServer {
 		return "Jetty";
 	}
 
-	public void start(String warPath, String contextPath, int httpPort, int httpsPort) throws Exception {
+	public void start(Map<String, String> contexts, int httpPort, int httpsPort) throws Exception {
 		if (server != null) {
 			throw new IllegalStateException("Web server is already running.");
 		}
 
 		server = new Server(httpPort);
 
-		WebAppContext webapp = new WebAppContext();
-		webapp.setContextPath(contextPath);
-		webapp.setWar(warPath);
+		for (String contextPath : contexts.keySet()) {
+			WebAppContext webapp = new WebAppContext();
+			webapp.setContextPath(contextPath);
+			webapp.setWar(contexts.get(contextPath));
 
-		// wire up DefaultServlet for static files
-		webapp.addServlet(DefaultServlet.class, "/*");
+			// wire up DefaultServlet for static files
+			webapp.addServlet(DefaultServlet.class, "/*");
 
-		server.setHandler(webapp);
+			server.setHandler(webapp);
+		}
 		server.start();
 	}
 

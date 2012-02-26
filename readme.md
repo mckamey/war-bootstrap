@@ -16,7 +16,7 @@ Usage
 	mvn archetype:generate \
 		-DarchetypeGroupId=org.duelengine \
 		-DarchetypeArtifactId=war-bootstrap-archetype \
-		-DarchetypeVersion=0.2.1
+		-DarchetypeVersion=0.3.0
 
 	# build your boostrap
 	# NOTE: replace "bootstrap" with your chosen project name
@@ -24,4 +24,4 @@ Usage
 
 	# run the resulting WAR on the test bootstrap
 	# NOTE: again replace with your chosen artifact names
-	java -jar bootstrap/target/bootstrap.jar -war path/to/myapp.war -p 8080 -c /myapp --jetty
+	java -jar bootstrap/target/bootstrap.jar -p 8080 --jetty -war /myapp='path/to/myapp.war'

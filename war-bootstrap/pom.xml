@@ -7,7 +7,7 @@
 
 	<groupId>org.duelengine</groupId>
 	<artifactId>bootstrap</artifactId>
-	<version>0.2.2</version>
+	<version>0.3.0</version>
 	<packaging>jar</packaging>
 
 	<name>WAR Bootstrap</name>
@@ -16,10 +16,10 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-		<javac.version>1.6</javac.version>
 		<glassfish.version>3.1.1</glassfish.version>
-		<jetty.version>8.0.1.v20110908</jetty.version>
-		<tomcat.version>7.0.21</tomcat.version>
+		<jetty.version>8.1.1.v20120215</jetty.version>
+		<tomcat.version>7.0.26</tomcat.version>
+		<javac.version>1.6</javac.version>
 	</properties>
 
 	<repositories>
@@ -88,7 +88,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>2.4</version>
 				<configuration>
 					<archive>
 						<manifest>
@@ -103,6 +103,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
 				<configuration>
 					<outputDirectory>${project.build.directory}</outputDirectory>
 				</configuration>
@@ -123,6 +124,32 @@
 					<configuration>
 						<source>${javac.version}</source>
 						<target>${javac.version}</target>
+					</configuration>
+				</plugin>
+
+				<!-- http://wiki.eclipse.org/M2E_plugin_execution_not_covered -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-dependency-plugin</artifactId>
+										<versionRange>[$2.4,)</versionRange>
+										<goals>
+											<goal>copy-dependencies</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
 					</configuration>
 				</plugin>
 			</plugins>
