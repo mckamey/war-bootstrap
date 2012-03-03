@@ -19,6 +19,7 @@
 		<glassfish.version>3.1.1</glassfish.version>
 		<jetty.version>8.1.1.v20120215</jetty.version>
 		<tomcat.version>7.0.26</tomcat.version>
+		<slf4j.version>1.6.4</slf4j.version>
 		<javac.version>1.6</javac.version>
 	</properties>
 
@@ -44,39 +45,51 @@
 		<!-- NOTE: GlassFish and Tomcat appear to be conflicting.
 			 order appears to matter and also
 			 must set scope to provided if not used -->
+
+		<!-- Jetty 7/8 embedded runtime -->
 		<dependency>
-			<!-- Jetty 7/8 embedded runtime -->
 			<groupId>org.eclipse.jetty.aggregate</groupId>
 			<artifactId>jetty-all</artifactId>
 			<version>${jetty.version}</version>
 		</dependency>
+
+		<!-- GlassFish 3.1 embedded runtime -->
 		<dependency>
-			<!-- GlassFish 3.1 embedded runtime -->
 			<groupId>org.glassfish.extras</groupId>
 			<artifactId>glassfish-embedded-web</artifactId>
 			<version>${glassfish.version}</version>
 			<scope>provided</scope><!-- comment this for GF3 -->
 		</dependency>
+
+		<!-- Tomcat 7 embedded runtime -->
 		<dependency>
-			<!-- Tomcat 7 embedded runtime -->
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-core</artifactId>
 			<version>${tomcat.version}</version>
 			<!--scope>compile</scope--><!-- comment this for TC7 -->
 		</dependency>
+
+		<!-- Tomcat 7 JSP -->
 		<dependency>
-			<!-- Tomcat 7 JSP -->
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-jasper</artifactId>
 			<version>${tomcat.version}</version>
 			<scope>compile</scope>
 		</dependency>
+
+		<!-- Tomcat 7 logging -->
 		<dependency>
-			<!-- Tomcat 7 logging -->
 			<groupId>org.apache.tomcat.embed</groupId>
 			<artifactId>tomcat-embed-logging-juli</artifactId>
 			<version>${tomcat.version}</version>
 			<scope>compile</scope>
+		</dependency>
+
+		<!-- SLF4J runtime -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
 		</dependency>
 	</dependencies>
 

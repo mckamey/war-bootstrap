@@ -9,3 +9,4 @@ bootstrap/target
 war-bootstrap-archetype/target
 launch.sh
 test.war
+tomcat
