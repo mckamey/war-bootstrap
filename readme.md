@@ -16,7 +16,7 @@ Usage
 	mvn archetype:generate \
 		-DarchetypeGroupId=org.duelengine \
 		-DarchetypeArtifactId=war-bootstrap-archetype \
-		-DarchetypeVersion=0.3.2
+		-DarchetypeVersion=0.3.3
 
 	# build your boostrap
 	# NOTE: replace "bootstrap" with your chosen project name

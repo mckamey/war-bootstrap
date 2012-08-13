@@ -14,6 +14,7 @@ import org.apache.catalina.startup.Tomcat;
 
 class TomcatServletServer implements ServletServer {
 	private Tomcat server;
+	private File tmpDir;
 
 	public String getName() {
 		return "Tomcat";
