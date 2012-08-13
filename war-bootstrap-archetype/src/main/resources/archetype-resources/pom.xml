@@ -28,6 +28,31 @@
 			 order appears to matter and also
 			 must set scope to provided if not used -->
 
+		<!-- Tomcat 7 embedded runtime -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-core</artifactId>
+			<version>${tomcat.version}</version>
+			<!-- <scope>compile</scope> --><!-- comment this for TC7 -->
+		</dependency>
+
+		<!-- Tomcat 7 logging -->
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-logging-juli</artifactId>
+			<version>${tomcat.version}</version>
+			<!-- <scope>compile</scope> --><!-- comment this for TC7 -->
+		</dependency>
+
+		<!-- Tomcat 7 JSP (Uncomment to support Tomcat JSP) -->
+<!--
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<version>${tomcat.version}</version>
+		</dependency>
+ -->
+
 		<!-- Jetty 7/8 embedded runtime -->
 		<dependency>
 			<groupId>org.eclipse.jetty.aggregate</groupId>
@@ -40,34 +65,15 @@
 			<groupId>org.glassfish.extras</groupId>
 			<artifactId>glassfish-embedded-web</artifactId>
 			<version>${glassfish.version}</version>
-			<scope>provided</scope><!-- comment this for GF3 -->
-		</dependency>
-
-		<!-- Tomcat 7 embedded runtime -->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-core</artifactId>
-			<version>${tomcat.version}</version>
-			<!--scope>compile</scope--><!-- comment this for TC7 -->
-		</dependency>
-
-		<!-- Tomcat 7 JSP -->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-jasper</artifactId>
-			<version>${tomcat.version}</version>
-			<scope>compile</scope>
-		</dependency>
-
-		<!-- Tomcat 7 logging -->
-		<dependency>
-			<groupId>org.apache.tomcat.embed</groupId>
-			<artifactId>tomcat-embed-logging-juli</artifactId>
-			<version>${tomcat.version}</version>
-			<scope>compile</scope>
+			<scope>compile</scope><!-- comment this for GF3 -->
 		</dependency>
 
 		<!-- SLF4J runtime -->
+		<dependency>
+			<groupId>com.pseudocode</groupId>
+			<artifactId>slf4j-compact</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
 			<artifactId>slf4j-api</artifactId>

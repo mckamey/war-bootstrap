@@ -20,6 +20,7 @@ class GlassFishServletServer implements ServletServer {
 			throw new IllegalStateException("Web server is already running.");
 		}
 
+		// https://wikis.oracle.com/display/GlassFish/3.1EmbeddedOnePager#3.1EmbeddedOnePager-4.1.Details%3A
 		GlassFishProperties gfProps = new GlassFishProperties();
 		if (httpPort > 0) {
 			gfProps.setPort("http-listener", httpPort);
@@ -29,14 +30,15 @@ class GlassFishServletServer implements ServletServer {
 //		}
 
 		server = GlassFishRuntime.bootstrap().newGlassFish(gfProps);
+		server.start();
 
 		for (String contextPath : contexts.keySet()) {
-			File war = new File(contexts.get(contextPath));
+			String warPath = contexts.get(contextPath);
+
+			File war = new File(warPath);
 			Deployer deployer = server.getDeployer();
 			deployer.deploy(war, "--name="+war.getName(), "--contextroot="+contextPath, "--force=true");
 		}
-
-		server.start();
 	}
 
 	public void stop() throws Exception {

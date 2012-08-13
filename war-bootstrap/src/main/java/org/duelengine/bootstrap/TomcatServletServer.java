@@ -5,6 +5,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.Map;
 
+import org.apache.catalina.LifecycleListener;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
@@ -28,22 +29,33 @@ class TomcatServletServer implements ServletServer {
 		server.setBaseDir(tmpDir.getCanonicalPath());
 		server.setPort(httpPort);
 
-//		server.addWebapp(contextPath, warPath);
+		boolean loadJSP = getClass().getResource("/javax/servlet/jsp/resources/jsp_2_0.xsd") != null;
+
+		LifecycleListener minListener = loadJSP ? null : new MinimalLifecycleListener();
 
 		for (String contextPath : contexts.keySet()) {
-			StandardContext ctx = new StandardContext();
-			ctx.setPath(contextPath);
-			ctx.setDocBase(contexts.get(contextPath));
+			String warPath = contexts.get(contextPath);
 
-			ctx.addLifecycleListener(new Tomcat.DefaultWebXmlListener());
+			if (loadJSP) {
+				// alternatively do this to include JSP
+				server.addWebapp(contextPath, warPath);
 
-			ContextConfig ctxCfg = new ContextConfig();
-			ctx.addLifecycleListener(ctxCfg);
+			} else {
+				StandardContext cx = new StandardContext();
+				cx.setPath(contextPath);
+				cx.setDocBase(warPath);
 
-			// prevent it from looking ( if it finds one - it'll have dup error )
-			ctxCfg.setDefaultWebXml("org/apache/catalin/startup/NO_DEFAULT_XML");
+				cx.addLifecycleListener(minListener);
 
-			server.getHost().addChild(ctx);
+				ContextConfig cxCfg = new ContextConfig();
+				cx.addLifecycleListener(cxCfg);
+
+				// prevent it from looking (if it finds one, it'll have dup error)
+				// "org/apache/catalin/startup/NO_DEFAULT_XML"
+				cxCfg.setDefaultWebXml(server.noDefaultWebXmlPath());
+
+				server.getHost().addChild(cx);
+			}
 		}
 
 		server.start();
