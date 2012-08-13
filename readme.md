@@ -24,4 +24,4 @@ Usage
 
 	# run the resulting WAR on the test bootstrap
 	# NOTE: again replace with your chosen artifact names
-	java -jar bootstrap/target/bootstrap.jar -p 8080 --jetty -war /myapp='path/to/myapp.war'
+	java -jar bootstrap/target/bootstrap.jar -p 8080 --tomcat -war /myapp='path/to/myapp.war'
