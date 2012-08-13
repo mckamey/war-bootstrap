@@ -4,6 +4,8 @@
 package ${package};
 
 import java.io.File;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.Map;
 
 import org.apache.catalina.core.StandardContext;
@@ -22,8 +24,10 @@ class TomcatServletServer implements ServletServer {
 			throw new IllegalStateException("Web server is already running.");
 		}
 
+		tmpDir = new File("tomcat");
+
 		server = new Tomcat();
-		server.setBaseDir(new File("tomcat").getCanonicalPath());
+		server.setBaseDir(tmpDir.getCanonicalPath());
 		server.setPort(httpPort);
 
 //		server.addWebapp(contextPath, warPath);
@@ -54,6 +58,25 @@ class TomcatServletServer implements ServletServer {
 
 		server.stop();
 		server.destroy();
+
+		if (tmpDir != null) {
+			Deque<File> stack = new ArrayDeque<File>();
+			stack.push(tmpDir);
+			while (stack.size() > 0) {
+				File parent = stack.pop();
+				if (parent.isDirectory()) {
+					File[] children = parent.listFiles();
+					if (children.length > 0) {
+						stack.push(parent);
+						for (File child : children) {
+							stack.push(child);
+						}
+					}
+				}
+				parent.delete();
+			}
+			tmpDir = null;
+		}
 
 		server = null;
 	}
