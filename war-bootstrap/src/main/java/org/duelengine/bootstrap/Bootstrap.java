@@ -12,6 +12,8 @@ public class Bootstrap {
 			"  -war <context>=<path>  : set the context of war (e.g., /=./root.war)\n" +
 			"  -p <port>              : set the HTTP listening port (default: 8080)\n"+
 			"  -s <port>              : set the HTTPS listening port (default: none)\n" +
+			"  -ks <keystore=file>    : set the path to the keystore file (default: null)\n" +
+			"  -kp <keystore-pass>    : set the password to the keystore (default: null)\n" +
 			"  --tomcat               : use Tomcat as servlet container (default)\n" +
 			"  --jetty                : use Jetty as servlet container\n" +
 			"  --glassfish            : use GlassFish as servlet container";
@@ -22,6 +24,8 @@ public class Bootstrap {
 		int port = 8080;
 		int https = -1;
 		ServletServer server = null;
+		String keystoreFile = null;
+		String keystorePass = null;
 		try {
 			System.out.println(SEPARATOR);
 			System.out.println("WAR Bootstrap\n");
@@ -32,6 +36,12 @@ public class Bootstrap {
 
 				} else if ("-s".equals(arg)) {
 					https = Integer.parseInt(args[++i]);
+
+				} else if ("-ks".equals(arg)) {
+					keystoreFile = args[++i];
+
+				} else if ("-kp".equals(arg)) {
+					keystorePass = args[++i];
 
 				} else if ("-war".equals(arg)) {
 					String contextPath;
@@ -91,7 +101,7 @@ public class Bootstrap {
 			System.out.println(SEPARATOR);
 			System.out.println();
 
-			server.start(contexts, port, https);
+			server.start(contexts, port, https, keystoreFile, keystorePass);
 
 			System.in.read();
 

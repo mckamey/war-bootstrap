@@ -12,7 +12,9 @@ class GlassFishServletServer implements ServletServer {
 		return "GlassFish";
 	}
 
-	public void start(Map<String, String> contexts, int httpPort, int httpsPort) throws Exception {
+	public void start(Map<String, String> contexts, int httpPort, int httpsPort, String keystoreFile, String keystorePass)
+		throws Exception {
+
 		if (server != null) {
 			throw new IllegalStateException("Web server is already running.");
 		}
@@ -22,9 +24,9 @@ class GlassFishServletServer implements ServletServer {
 		if (httpPort > 0) {
 			gfProps.setPort("http-listener", httpPort);
 		}
-//		if (httpsPort > 0) {
-//			gfProps.setPort("https-listener", httpsPort);
-//		}
+		if (httpsPort > 0) {
+			gfProps.setPort("https-listener", httpsPort);
+		}
 
 		server = GlassFishRuntime.bootstrap().newGlassFish(gfProps);
 		server.start();

@@ -13,7 +13,9 @@ class JettyServletServer implements ServletServer {
 		return "Jetty";
 	}
 
-	public void start(Map<String, String> contexts, int httpPort, int httpsPort) throws Exception {
+	public void start(Map<String, String> contexts, int httpPort, int httpsPort, String keystoreFile, String keystorePass)
+		throws Exception {
+
 		if (server != null) {
 			throw new IllegalStateException("Web server is already running.");
 		}

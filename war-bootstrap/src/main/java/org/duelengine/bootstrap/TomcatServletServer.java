@@ -6,6 +6,7 @@ import java.util.Deque;
 import java.util.Map;
 
 import org.apache.catalina.LifecycleListener;
+import org.apache.catalina.connector.Connector;
 import org.apache.catalina.core.StandardContext;
 import org.apache.catalina.startup.ContextConfig;
 import org.apache.catalina.startup.Tomcat;
@@ -18,7 +19,9 @@ class TomcatServletServer implements ServletServer {
 		return "Tomcat";
 	}
 
-	public void start(Map<String, String> contexts, int httpPort, int httpsPort) throws Exception {
+	public void start(Map<String, String> contexts, int httpPort, int httpsPort, String keystoreFile, String keystorePass)
+		throws Exception {
+
 		if (server != null) {
 			throw new IllegalStateException("Web server is already running.");
 		}
@@ -26,8 +29,21 @@ class TomcatServletServer implements ServletServer {
 		tmpDir = new File("tomcat");
 
 		server = new Tomcat();
-		server.setBaseDir(tmpDir.getCanonicalPath());
+		if (httpsPort > 0) {
+			Connector httpsConnector = new Connector();
+			httpsConnector.setPort(httpsPort);
+			httpsConnector.setSecure(true);
+			httpsConnector.setScheme("https");
+			httpsConnector.setAttribute("keystoreFile", keystoreFile);
+			httpsConnector.setAttribute("keystorePass", keystorePass);
+			httpsConnector.setAttribute("clientAuth", "false");
+			httpsConnector.setAttribute("sslProtocol", "TLS");
+			httpsConnector.setAttribute("SSLEnabled", true);
+			server.getService().addConnector(httpsConnector);
+		}
+
 		server.setPort(httpPort);
+		server.setBaseDir(tmpDir.getCanonicalPath());
 
 		boolean loadJSP = getClass().getResource("/javax/servlet/jsp/resources/jsp_2_0.xsd") != null;
 
