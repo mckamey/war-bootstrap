@@ -6,7 +6,7 @@ Environment
 
 - Java SE JDK 1.6
 	http://www.oracle.com/technetwork/java/javase/downloads/
-- Maven 3.0.3
+- Maven 3.0.x
 	http://maven.apache.org/download.html
 
 Usage
@@ -16,7 +16,7 @@ Usage
 	mvn archetype:generate \
 		-DarchetypeGroupId=org.duelengine \
 		-DarchetypeArtifactId=war-bootstrap-archetype \
-		-DarchetypeVersion=0.4.0
+		-DarchetypeVersion=0.5.0
 
 	# build your boostrap
 	# NOTE: replace "bootstrap" with your chosen project name

@@ -24,7 +24,7 @@ class MinimalLifecycleListener implements LifecycleListener{
 			ex.printStackTrace();
 		}
 	}
-	
+
 	@Override
 	public void lifecycleEvent(LifecycleEvent event) {
 		if (!Lifecycle.BEFORE_START_EVENT.equals(event.getType())) {
@@ -38,6 +38,7 @@ class MinimalLifecycleListener implements LifecycleListener{
 		servlet.setName("default");
 		servlet.setServletClass("org.apache.catalina.servlets.DefaultServlet");
 		servlet.setLoadOnStartup(1);
+		servlet.setOverridable(true);
 		cx.addChild(servlet);
 
 		// servlet mappings

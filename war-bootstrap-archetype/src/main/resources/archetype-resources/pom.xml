@@ -18,12 +18,24 @@
 
 		<glassfish.version>3.1.1</glassfish.version>
 		<jetty.version>8.1.5.v20120716</jetty.version>
-		<tomcat.version>7.0.29</tomcat.version>
-		<slf4j.version>1.6.6</slf4j.version>
+		<tomcat.version>7.0.33</tomcat.version>
+		<slf4j.version>1.7.5</slf4j.version>
 		<javac.version>1.6</javac.version>
 	</properties>
 
 	<dependencies>
+		<!-- SLF4J runtime -->
+		<dependency>
+			<groupId>com.pseudocode</groupId>
+			<artifactId>slf4j-compact</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+		</dependency>
+
 		<!-- NOTE: GlassFish and Tomcat appear to be conflicting.
 			 order appears to matter and also
 			 must set scope to provided if not used -->
@@ -66,18 +78,6 @@
 			<artifactId>glassfish-embedded-web</artifactId>
 			<version>${glassfish.version}</version>
 			<scope>compile</scope><!-- comment this for GF3 -->
-		</dependency>
-
-		<!-- SLF4J runtime -->
-		<dependency>
-			<groupId>com.pseudocode</groupId>
-			<artifactId>slf4j-compact</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
 		</dependency>
 	</dependencies>
 
