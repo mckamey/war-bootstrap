@@ -13,7 +13,7 @@
 
 	<groupId>org.duelengine</groupId>
 	<artifactId>war-bootstrap-archetype</artifactId>
-	<version>0.5.0</version>
+	<version>0.5.1</version>
 	<packaging>maven-archetype</packaging>
 
 	<name>WAR Bootstrap Archetype</name>
@@ -22,13 +22,13 @@
 	<licenses>
 		<license>
 			<name>MIT License</name>
-			<url>http://duelengine.org/LICENSE.txt</url>
+			<url>https://github.com/mckamey/duel/raw/master/LICENSE.txt</url>
 		</license>
 	</licenses>
 	<scm>
-		<url>https://bitbucket.org/mckamey/war-bootstrap</url>
-		<connection>scm:hg:https://bitbucket.org/mckamey/war-bootstrap</connection>
-		<developerConnection>scm:hg:https://bitbucket.org/mckamey/war-bootstrap</developerConnection>
+		<url>https://github.com/mckamey/war-bootstrap</url>
+		<connection>scm:git:https://github.com/mckamey/war-bootstrap</connection>
+		<developerConnection>scm:git:https://github.com/mckamey/war-bootstrap</developerConnection>
 	</scm>
 	<developers>
 		<developer>
@@ -56,6 +56,30 @@
 				<plugin>
 					<artifactId>maven-archetype-plugin</artifactId>
 					<version>2.0</version>
+				</plugin>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.apache.maven.plugins</groupId>
+										<artifactId>maven-enforcer-plugin</artifactId>
+										<versionRange>[1.0.0,)</versionRange>
+										<goals>
+											<goal>enforce</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore />
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>

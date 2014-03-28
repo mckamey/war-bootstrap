@@ -4,9 +4,9 @@ WAR Bootstrap
 Environment
 -----------
 
-- Java SE JDK 1.6
+- Java SE JDK 1.8+ \
 	http://www.oracle.com/technetwork/java/javase/downloads/
-- Maven 3.0.x
+- Maven 3.0.x+ \
 	http://maven.apache.org/download.html
 
 Usage
